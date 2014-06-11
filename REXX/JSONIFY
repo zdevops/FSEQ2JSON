@@ -1,0 +1,87 @@
+/* REXX */
+
+/* Need this */
+CRLF = '0D25'x
+/* and change this to your API endpoint */
+URL        = "http://httpbin.org/post"
+httpport = '80'
+
+/* Read FULL SEQFILE   */
+"EXECIO * DISKR SEQFILE (STEM fseq."
+
+/* First line is column-names, 2nd to last is data */
+
+  cnameline = fseq.1
+  cols = words(cnameline)
+  cnames.0 = 0
+  do i = 1 to cols
+    cnames.i = word(cnameline,i)
+  end
+  json.1 = '{"result":['
+  jsoncount = 1
+  do i = 2 to fseq.0
+    jsoncount  = jsoncount + 1
+    json.jsoncount = "{"
+    do ii = 1 to cols
+      jsoncount = jsoncount + 1
+      json.jsoncount = '"' || cnames.ii || '":"'
+      json.jsoncount = json.jsoncount || word(fseq.i,ii) || '"'
+      /* no comma at last entry */
+      if ii < cols then
+        json.jsoncount = json.jsoncount || ','
+    end
+    jsoncount = jsoncount + 1
+    json.jsoncount = "}"
+    /* no comma at last line */
+    if i < fseq.0 then
+      json.jsoncount = json.jsoncount || ","
+  end
+  jsoncount = jsoncount + 1
+  json.jsoncount = ' ]}'
+  json.0 = jsoncount
+
+/* JSON BUILT, TIME TO SEND IT :) */
+/* initialize socket  */
+parse var URL        "http://"webserver"/"webfile
+srv = Socket('Initialize', 'json')
+srv = Socket('GetHostId')
+parse var srv src ipaddress
+srv= Socket('Socket')
+parse var srv src ssockid
+srv = Socket('Gethostbyname',webserver)
+parse var srv src serverip
+srv = Socket('Setsockopt',ssockid,'SOL_SOCKET','SO_REUSEADDR','ON')
+parse var srv src
+srv = Socket('Setsockopt',ssockid,'SOL_SOCKET','SO_LINGER','OFF')
+parse var srv src
+srv = Socket('Setsockopt',ssockid,'SOL_SOCKET','SO_ASCII','ON')
+parse var srv src
+srv = Socket('Connect',ssockid,'AF_INET' httpport serverip)
+parse var srv src
+httpget = 'POST' '/'webfile 'HTTP/1.1 ' CRLF
+srv = Socket('Send',ssockid,httpget)
+httpget = 'Accept: application/json' CRLF
+srv = Socket('Send',ssockid,httpget)
+httpget = 'Content-Type: application/json' CRLF
+srv = Socket('Send',ssockid,httpget)
+json_to_send = ""
+do ii = 1 to json.0
+  json_to_send = json_to_send || json.ii
+end
+json_to_send = json_to_send CRLF
+len = length(json_to_send) - 2
+httpget = 'Content-Length: ' || len CRLF
+srv = Socket('Send',ssockid,httpget)
+httpget = 'Host:' webserver':'httpport CRLF
+srv = Socket('Send',ssockid,httpget)
+srv = Socket('Send',ssockid,CRLF)
+srv = Socket('Send',ssockid,json_to_send)
+srv = Socket('Send',ssockid,CRLF)
+ parse var srv src len
+srv = Socket('Recv',ssockid)
+parse var srv src len data
+Say 'Server returned (headers)' len 'bytes of data:'
+Say 'read>>' data
+srv = Socket('Close',ssockid)
+
+
