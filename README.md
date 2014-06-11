@@ -39,4 +39,46 @@ Wouldn't it be great if you could run this dataset through a little JOB transfor
 
 Now you could just use this little JSON to present the data via some 'html/javascript/jsonparsing' so this data can be made visible within your organisation without people having to go into this tedious world called 3270 to browse this data via ISPF;3;4, or downloading it and bringing it into MickeySoft Excel :)
 
+# Say hello to FSEQ2JSON
+
+That's jsut what "FSEQ2JSON" does. See example below:
+
+    //STEP1   EXEC PGM=IKJEFT01,PARM='%JSONIFY'
+    //SYSEXEC   DD DSN=ZDO.INST.REXX,DISP=SHR
+    //SEQFILE   DD *
+    VOLSER VOLUME_TYPE USED_CYLS  FREE_CYLS
+    SP1200 3390-1           1000       2390       
+    SP1201 3390-1            500       2890
+    //SYSTSPRT  DD  SYSOUT=*
+    //SYSTSIN   DD  DUMMY
+    
+With the following output in SYSTSPRINT
+
+    Server returned (headers) 524 bytes of data:
+    read>> HTTP/1.1 200 OK  
+    Access-Control-Allow-Origin: *  
+    Content-Type: application/json  
+    Date: Wed, 11 Jun 2014 20:20:46 GMT  
+    Server: gunicorn/18.0
+    Content-Length: 602  
+    Connection: keep-alive    
+    {   "args": {},    "data": "{\"result\":[
+                                  {\"VOLSER\":\"SP1200\",
+                                   \"VOLUME_TYPE\":\"3390-1\",
+                                   \"USED_CYLS\":\"1000\",
+                                   \"FREE_CYLS\":\"2390\"},
+                                  {\"VOLSER\":\"SP1200\",
+                                   \"VOLUME_TYPE\":\"3390-1\",
+                                   \"USED_CYLS\":\"1000\",
+                                   \"FREE_CYLS\":\"2390\"}
+                                ]\",
+                                ..
+                                ..
+    }
+    
+This of course by sending our data to "http://httpbin.org/post"
+
+
+
+
 
