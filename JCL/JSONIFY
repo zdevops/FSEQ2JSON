@@ -1,0 +1,18 @@
+//*
+//*       JSONIFY VERSION BETA :)
+//*       http://zdevops.com
+//*
+//*       INSTRUCTIONS
+//*       ===========
+//*       Add JOBCARD
+//*       Change SYSEXEC to LOCATION of your REXX
+//*
+//*
+//STEP1   EXEC PGM=IKJEFT01,PARM='%JSONIFY'
+//SYSEXEC   DD DSN=ZDO.INST.REXX,DISP=SHR
+//SEQFILE   DD *
+ VOLSER VOLUME_TYPE USED_CYLS  FREE_CYLS
+ SP1200 3390-1           1000       2390
+ SP1201 3390-1            500       2890
+//SYSTSPRT  DD  SYSOUT=*
+//SYSTSIN   DD  DUMMY
