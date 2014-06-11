@@ -3,6 +3,11 @@ FSEQ2JSON
 
 Sending your space delimited Sequential File as a JSON to a WebServer
 
+##TODO:
+ * Add the (reference) webserver implementation
+ * Add various checks (mostly happy flow now)
+ * 
+
 # Use Case
 So, your local systems programmers (or maybe you yourself) have written up some pretty neat code producing 
 'management information' in a so-called Sequential File.
@@ -14,8 +19,6 @@ As an example, it might look just like this (any likeliness to VOLSER-names used
     VOLSER VOLUME_TYPE USED_CYLS  FREE_CYLS
     SP1200 3390-1           1000       2390       
     SP1201 3390-1            500       2890
-    
-This list (dataset, sequential file) going on liek that....
 
 Wouldn't it be great if you could run this dataset through a little JOB transforming it into a JSON-structure like below:
 
@@ -38,6 +41,8 @@ Wouldn't it be great if you could run this dataset through a little JOB transfor
     }
 
 Now you could just use this little JSON to present the data via some 'html/javascript/jsonparsing' so this data can be made visible within your organisation without people having to go into this tedious world called 3270 to browse this data via ISPF;3;4, or downloading it and bringing it into MickeySoft Excel :)
+
+But of course you would need to get this JSON out to a webserver.
 
 # Say hello to FSEQ2JSON
 
