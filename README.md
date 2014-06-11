@@ -52,7 +52,7 @@ That's jsut what "FSEQ2JSON" does. See example below:
     //SYSTSPRT  DD  SYSOUT=*
     //SYSTSIN   DD  DUMMY
     
-With the following output in SYSTSPRINT
+With the following output in SYSTSPRT
 
     Server returned (headers) 524 bytes of data:
     read>> HTTP/1.1 200 OK  
