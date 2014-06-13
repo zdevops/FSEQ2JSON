@@ -1,0 +1,65 @@
+{% extends "skeletons/base.html" %}
+
+
+{% block content %}
+<h3>Here's some recent (submit PERJSON for update) perfdata</h3>
+<div id="perftable"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script language="JavaScript">
+function getData() {
+    $.ajax({
+        url: "/static/jsons/perfdata.json",    
+        cache: false,                               // Fixes bad bad MSIE8 behaviour
+        dataType: "text",
+        xhrFields:{
+            withCredentials: true
+        },
+        error: function(data) {
+            alert("Eek: " + data.statusText);
+            alert(data);
+        },
+        success: function (data) {
+            var json = $.parseJSON(data);
+            var perfdata = json.result;
+            var rowhtmldata  = "";
+            jQuery.each(perfdata, function (i, res) {
+                rowhtmldata += "<tr>";
+                rowhtmldata += "<td>" + res.DATE + "</td>";
+                rowhtmldata += "<td>" + res.TIME + "</td>";
+                rowhtmldata += "<td>" + res.JOBNAME + "</td>";
+                rowhtmldata += "<td>" + res.SRBTIME + "</td>";
+                rowhtmldata += "<td>" + res.TCBTIME + "</td>";
+                rowhtmldata += "<td>" + res.ASSTIME + "</td>";
+                rowhtmldata += "</tr>";
+            });
+
+            tdata  = '<table class="table table-responsive table-striped table-hover">';
+            tdata += '<thead>';
+                    tdata += '<tr>';
+                    tdata += '<td><strong>Date</strong></td>';
+                    tdata += '<td><strong>Time</strong></td>';
+                    tdata += '<td><strong>Jobname</strong></td>';
+                    tdata += '<td><strong>SRB-Time</strong></td>';
+                    tdata += '<td><strong>TCB-Time</strong></td>';
+                    tdata += '<td><strong>ASS-Time</strong></td>';
+                    tdata += '</tr>';
+                    tdata += '</thead>';
+                    tdata += '<tbody>';
+            tdata += rowhtmldata;
+            tdata += '</tbody>';
+            tdata += '</table>';
+            $('#perftable').html(tdata);   
+        }
+    });
+}
+setInterval(getData, 1000);
+
+getData();
+$( document ).ready(function() {
+    getData();
+});
+</script>
+{% endblock %}
