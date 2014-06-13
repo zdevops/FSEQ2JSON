@@ -3,10 +3,11 @@
 /* Need this */
 CRLF = '0D25'x
 
-PARSE ARG URI
+PARSE ARG URI PORT
 URL        = "http://" || URI
-httpport = '80'
+httpport = PORT
 
+say "SENDING TO " URI PORT
 /* Read FULL SEQFILE   */
 "EXECIO * DISKR SEQFILE (STEM fseq."
 
