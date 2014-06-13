@@ -1,14 +1,9 @@
-//*
-//*       JSONIFY VERSION BETA :)
-//*       http://zdevops.com
-//*
-//*       INSTRUCTIONS
-//*       ===========
-//*       Add JOBCARD
-//*       Change SYSEXEC to LOCATION of your REXX
+//ZDOJSON1 JOB 'ACCT#','JSONIFY DEMO',                                  JOB00271
+//             NOTIFY=&SYSUID,REGION=0M,
+//             CLASS=A,MSGCLASS=H,MSGLEVEL=(1,1)
 //*
 //*
-//STEP1   EXEC PGM=IKJEFT01,PARM='%JSONIFY'
+//STEP1   EXEC PGM=IKJEFT01,PARM='JSONIFY httpbin.org/post'
 //SYSEXEC   DD DSN=ZDO.INST.REXX,DISP=SHR
 //SEQFILE   DD *
  VOLSER VOLUME_TYPE USED_CYLS  FREE_CYLS

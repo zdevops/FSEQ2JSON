@@ -2,8 +2,9 @@
 
 /* Need this */
 CRLF = '0D25'x
-/* and change this to your API endpoint */
-URL        = "http://httpbin.org/post"
+
+PARSE ARG URI
+URL        = "http://" || URI
 httpport = '80'
 
 /* Read FULL SEQFILE   */
