@@ -1,7 +1,7 @@
 # Installation
 basically : git clone, mkvirtualenv <env> pip install -r requirements, make go :)
 
-# Based on https://github.com/wizardofzos/flask-bootstrap-dev
+### Based on https://github.com/wizardofzos/flask-bootstrap-dev
 It's a web-backend/frontend to demo the power of FSEQ2JSON :)
 
 
