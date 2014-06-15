@@ -11,6 +11,8 @@ JSON via an AJAX-call to show the data in a tabular form.....
 ## HOWTO?
 Just fire up the webapp, an naviate to http://localhost:5000/perfdata, then submit the job to se the auto-refresh happening :)
 
+# Make file for lazy developer...
+
 Here's the Makefile stuff :
 
 Runtime stuff:
