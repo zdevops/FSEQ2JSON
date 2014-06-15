@@ -4,6 +4,9 @@ basically : git clone, mkvirtualenv <env> pip install -r requirements, make go :
 ### Based on https://github.com/wizardofzos/flask-bootstrap-dev
 It's a web-backend/frontend to demo the power of FSEQ2JSON :)
 
+It has a receive-endpoint for the json push from the 'PERJSON'-job.
+It will just receive the json, store it at "/static/jsons/perfdata.json" so the "/perfdata"-page can load in this
+JSON via an AJAX-call to show the data in a tabular form.....
 
 Here's the Makefile stuff :
 
