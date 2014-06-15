@@ -8,6 +8,9 @@ It has a receive-endpoint for the json push from the 'PERJSON'-job.
 It will just receive the json, store it at "/static/jsons/perfdata.json" so the "/perfdata"-page can load in this
 JSON via an AJAX-call to show the data in a tabular form.....
 
+## HOWTO?
+Just fire up the webapp, an naviate to http://localhost:5000/perfdata, then submit the job to se the auto-refresh happening :)
+
 Here's the Makefile stuff :
 
 Runtime stuff:
