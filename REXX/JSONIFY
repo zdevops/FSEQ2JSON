@@ -60,21 +60,21 @@ srv = Socket('Setsockopt',ssockid,'SOL_SOCKET','SO_ASCII','ON')
 parse var srv src
 srv = Socket('Connect',ssockid,'AF_INET' httpport serverip)
 parse var srv src
-httpget = 'POST' '/'webfile 'HTTP/1.1 ' CRLF
+httpget = 'POST' '/'webfile 'HTTP/1.1 ' || CRLF
 srv = Socket('Send',ssockid,httpget)
-httpget = 'Accept: application/json' CRLF
+httpget = 'Accept: application/json' || CRLF
 srv = Socket('Send',ssockid,httpget)
-httpget = 'Content-Type: application/json' CRLF
+httpget = 'Content-Type: application/json' || CRLF
 srv = Socket('Send',ssockid,httpget)
 json_to_send = ""
 do ii = 1 to json.0
   json_to_send = json_to_send || json.ii
 end
-json_to_send = json_to_send CRLF
+json_to_send = json_to_send || CRLF
 len = length(json_to_send) - 2
-httpget = 'Content-Length: ' || len CRLF
+httpget = 'Content-Length: ' || len || CRLF
 srv = Socket('Send',ssockid,httpget)
-httpget = 'Host:' webserver':'httpport CRLF
+httpget = 'Host:' webserver':'httpport || CRLF
 srv = Socket('Send',ssockid,httpget)
 srv = Socket('Send',ssockid,CRLF)
 srv = Socket('Send',ssockid,json_to_send)
